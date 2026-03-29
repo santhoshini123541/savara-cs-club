@@ -36,7 +36,14 @@ async function register() {
 
 /* PRODUCTS */
 async function loadProducts() {
-  const res = await fetch(API + "/api/product"); // BUG
+  const res = await fetch(API + "/api/admin/products",{
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      name: name.value,
+      price: price.value
+    })
+  }); // BUG
   const data = await res.json();
 
   const list = document.getElementById("list");
@@ -57,7 +64,7 @@ async function loadProducts() {
 function addToCart(id, name, price) {
   let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
   cart.push({ id, name, price });
-  localStorage.setItem("cart", JSON.stringify(cart)); // BUG
+  localStorage.setItem("cartdata", JSON.stringify(cart)); // BUG
 }
 
 /* ORDER */
